@@ -1,25 +1,21 @@
-import logo from './logo.svg';
+import React from 'react';
+import {BrowserRouter, Route, Switch} from "react-router-dom";
+import Baby from './pages/Baby.pages'; 
 import './App.css';
+import Home from './pages/Home.pages';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+        <BrowserRouter>
+          <h1 className="text-center"> MapBox and BabylonJs Assignment </h1>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/baby" component={Baby} />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;
