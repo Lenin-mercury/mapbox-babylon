@@ -2,7 +2,7 @@ import React, {createRef, useState} from 'react';
 import { useScreenshot} from 'use-react-screenshot';
 import { Link } from "react-router-dom";
 import './home.css'
-import Map from '../components/Map';
+import Map from '../../components/Map/Map';
 
 const Home = () => {
 

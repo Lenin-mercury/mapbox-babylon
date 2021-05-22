@@ -1,8 +1,8 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import Baby from './pages/Baby.pages'; 
 import './App.css';
-import Home from './pages/Home.pages';
+import Babylon from './pages/Babylon/Babylon.page'; 
+import Home from './pages/Home/Home.page';
 
 const App = () => {
   return (
@@ -11,7 +11,7 @@ const App = () => {
           <h1 className="text-center"> MapBox and BabylonJs Assignment </h1>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/baby" component={Baby} />
+          <Route exact path="/baby" component={Babylon} />
         </Switch>
       </BrowserRouter>
     </div>

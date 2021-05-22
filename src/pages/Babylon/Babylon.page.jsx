@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import { ArcRotateCamera , Vector3, HemisphericLight, MeshBuilder, PointLight, StandardMaterial, Texture} from "@babylonjs/core";
 import SceneComponent from 'babylonjs-hook'; 
-import './baby.css';
-const Baby = (props) => {
+import './Babylon.css';
+const Babylon = (props) => {
   let box;
   const [pic, setPic]= useState(props.location.state);
   const onSceneReady = (scene) => {
@@ -37,4 +37,4 @@ const onRender = (scene) => {
   );
 };
 
-export default Baby;
+export default Babylon;
