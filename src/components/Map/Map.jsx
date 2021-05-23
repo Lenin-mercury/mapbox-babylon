@@ -21,28 +21,19 @@ useEffect(() => {
   center: [lng, lat],
   zoom: zoom,
   preserveDrawingBuffer: true,
-  controls:true
+ 
   });
   
 
-  }, [zoom]);
+  }, []);
 
-  console.log(zoom);
 
   return (
     <div className="map">
         <div ref={mapContainer} className="map-container" />
-
-        <div className="map-controllers">
-          <i className="fa fa-plus-square map-icon" aria-hidden="true" 
-          onClick={() => setZoom(zoom + 1)}
-          ></i>
-          <i className="fa fa-minus-square map-icon" aria-hidden="true"
-           onClick={() => setZoom(zoom - 1)}
-          ></i>
-        </div>
     </div>
   );
 }
 
 export default Map;
+
