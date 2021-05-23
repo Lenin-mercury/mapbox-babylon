@@ -1,39 +1,37 @@
-import React, { useRef, useEffect, useState } from 'react';
-import './map.css'
-import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+import React, { useRef, useEffect, useState } from "react";
+import ReactMapGL, { NavigationControl } from "react-map-gl";
+import "./map.css";
+import { REACT_APP_MAPBOX_TOKEN } from "../../private/keys";
 
-mapboxgl.accessToken = 'pk.eyJ1IjoibGVuaW5rIiwiYSI6ImNrb3YzZjB6NTAxYzEycHRtN2RzZHJoaDEifQ.US40UNIRpkeHWK2cnz11dw';
+const navControlStyle = {
+  right: 10,
+  top: 10,
+};
 
-function Map() {
-
-//map states  
-const mapContainer = useRef(null);
-const map = useRef(null);
-const [lng, setLng] = useState(-70.9);
-const [lat, setLat] = useState(42.35);
-const [zoom, setZoom] = useState(9);
-
-useEffect(() => {
-  if (map.current) return; // initialize map only once
-  map.current = new mapboxgl.Map({
-  container: mapContainer.current,
-  style: 'mapbox://styles/mapbox/streets-v11',
-  center: [lng, lat],
-  zoom: zoom,
-  preserveDrawingBuffer: true,
- 
+const Map = () => {
+  const [viewport, setViewport] = useState({
+    latitude: 45.4211,
+    longitude: -75.6903,
+    width: "100%",
+    height: "85vh",
+    zoom: 8,
+    preserveDrawingBuffer: true,
   });
-  
-
-  }, []);
-
 
   return (
-    <div className="map">
-        <div ref={mapContainer} className="map-container" />
+    <div>
+      <ReactMapGL
+        {...viewport}
+        mapboxApiAccessToken={REACT_APP_MAPBOX_TOKEN}
+        mapStyle="mapbox://styles/mapbox/streets-v11"
+        onViewportChange={(viewport) => {
+          setViewport(viewport);
+        }}
+      >
+        <NavigationControl style={navControlStyle} />
+      </ReactMapGL>
     </div>
   );
-}
+};
 
 export default Map;
-

@@ -1,76 +1,111 @@
 import React, { createRef, useEffect, useState } from "react";
 import { useScreenshot } from "use-react-screenshot";
 import { Link } from "react-router-dom";
-import { OverlayTrigger, Button, ButtonGroup, Tooltip } from "react-bootstrap";
+import {
+  OverlayTrigger,
+  Button,
+  ButtonGroup,
+  Tooltip,
+  Modal,
+} from "react-bootstrap";
 
 import "./home.css";
 import Map from "../../components/Map/Map";
-import Map2 from "../../components/Map/Map2";
+import Babylon from "../../components/Babylon/Babylon";
 
 const Home = () => {
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getImage();
+  }, []);
 
   const ref = createRef(null);
 
-  const [count, setCount] = useState(5);
   const [image, takeScreenshot] = useScreenshot();
+  const [show, setShow] = useState(false);
+  const [show3D, setShow3d] = useState(false);
 
   const getImage = () => {
     takeScreenshot(ref.current);
-    setCount(count + 1);
+    console.log("getimage");
   };
 
-  const view3D = () => {};
 
   const [width, setWidth] = useState(600);
 
   return (
     <div className="home">
       <div id="map-container" ref={ref} className="home__map">
-        <Map2 />
-
+        <Map />
         <div className="home__control">
           <ButtonGroup vertical>
             <OverlayTrigger
               placement="left"
               overlay={<Tooltip id="tooltip-left">Take ScreenShot</Tooltip>}
             >
-              <Button variant="light" onClick={getImage} className="home__btn">
+              <Button
+                variant="light"
+                onClick={() => {
+                  getImage();
+                  setShow(true);
+                }}
+                className="home__btn"
+              >
                 {" "}
                 <i className="fas fa-camera"></i>{" "}
               </Button>
             </OverlayTrigger>
 
-            <OverlayTrigger
+            {/* <OverlayTrigger
               placement="left"
-              overlay={<Tooltip id="tooltip-left">See in 3D</Tooltip>}
+              overlay={<Tooltip id="tooltip-left">View in 3D</Tooltip>}
             >
-              <Button variant="light" className="home__btn">
+              <Button variant="light" className="home__btn" onClick={view3D}>
                 {" "}
                 <i className="fas fa-cube"></i>{" "}
               </Button>
-            </OverlayTrigger>
+            </OverlayTrigger> */}
           </ButtonGroup>
         </div>
 
-        {/* <div className="home__controls col-4">
-          <button onClick={getImage} className="btn btn-info home__button">
-            Take screenshot
-          </button>
-
-          <Link
-            to={{
-              pathname: "/baby",
-              state: image,
+        <div className="home__popup">
+          <Modal
+            show={show}
+            onHide={() => {
+              setShow(false);
+              setShow3d(false);
             }}
-            className="btn btn-success home__button"
+            dialogClassName="modal-90w model-width"
+            aria-labelledby="example-custom-modal-styling-title"
           >
-            Convert to 3D
-          </Link>
+            <Modal.Header closeButton>
+              <Modal.Title id="example-custom-modal-styling-title">
+                {show3D ? "3D view of the Map " : "Screenshot Of Current Map"}
+              </Modal.Title>
+            </Modal.Header>
 
-          <img width={width} src={image} className="home__sc" />
-        </div> */}
+            <Modal.Body>
+              {show3D ? (
+                <Babylon img3d={image} />
+              ) : (
+                <img width={width} src={image} className="home__sc" />
+              )}
+            </Modal.Body>
 
+            <Modal.Footer closeButton>
+              <Modal.Title id="example-custom-modal-styling-title">
+                <Button
+                  variant="info"
+                  onClick={
+                    show3D ? () => setShow(false) : () => setShow3d(true)
+                  }
+                >
+                  {" "}
+                  {show3D ? "Close" : "View in 3D"}{" "}
+                </Button>
+              </Modal.Title>
+            </Modal.Footer>
+          </Modal>
+        </div>
       </div>
     </div>
   );

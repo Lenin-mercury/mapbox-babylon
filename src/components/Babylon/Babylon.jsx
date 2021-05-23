@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import { ArcRotateCamera , Vector3, HemisphericLight, MeshBuilder, PointLight, StandardMaterial, Texture} from "@babylonjs/core";
 import SceneComponent from 'babylonjs-hook'; 
 import './Babylon.css';
-const Babylon = (props) => {
+const Babylon = ({img3d}) => {
+  
   let box;
-  const [pic, setPic]= useState(props.location.state);
   const onSceneReady = (scene) => {
   var camera = new ArcRotateCamera("camera1", -Math.PI / 2, Math.PI / 2.2, 5, new Vector3(0, 0, 0), scene);
   camera.setTarget(Vector3.Zero());
@@ -13,7 +13,7 @@ const Babylon = (props) => {
   var light = new HemisphericLight("light", new Vector3(0, 1, 0), scene);
   light.intensity = 0.7;
   var mat = new StandardMaterial("mat", scene);
-  var texture = new Texture(pic, scene);
+  var texture = new Texture(img3d, scene);
   mat.diffuseTexture = texture;
   box = MeshBuilder.CreateBox("box", { size: 2 }, scene);
   box.material= mat;
